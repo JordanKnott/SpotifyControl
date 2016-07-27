@@ -1,61 +1,71 @@
 #SingleInstance Force
 
 SoundState := 1
+PausedState := 0
 
 +!o::
-WinGetTitle, Title, A
-Gosub, ActivateSpot
-if(SoundState = 1)
-{
-    Loop, 20
+    WinGetTitle, Title, A
+    Gosub, ActivateSpot
+    if(SoundState = 1)
     {
-        Send ^{Down}
-        Sleep, 20
+        Loop, 20
+        {
+            Send ^{Down}
+            Sleep, 20
+        }
+        TrayTip, Spotify, Muted
+        SoundState := 0
+    } else if(SoundState = 0) {
+        Loop, 20
+        {
+            Send ^{Up}
+            Sleep, 10
+        }
+        TrayTip, Spotify, Unmuted
+        SoundState := 1
     }
-    SoundState := 0
     WinActivate, %Title%
     Return
-}
-if(SoundState = 0)
-{
-    Loop, 20
-    {
-        Send ^{Up}
-        Sleep, 10
-    }
-    SoundState := 1
-    WinActivate, %Title%
-    Return
-}
-Return
 
 +!p::
-WinGetTitle, Title, A
-Gosub, ActivateSpot
-Send {Space}
-WinActivate, %Title%
-Return
+    WinGetTitle, Title, A
+    Gosub, ActivateSpot
+    Send {Space}
+    if(PausedState = 1){
+        TrayTip, Spotify, Unpaused
+        PausedState := 0
+    }else {
+        TrayTip, Spotify, Paused
+        PausedState := 1
+    }
+    WinActivate, %Title%
+    Return
 
 +!n::
-WinGetTitle, Title, A
-Gosub, ActivateSpot
-Send ^{Right}
-WinActivate, %Title%
-Return
+    WinGetTitle, Title, A
+    Gosub, ActivateSpot
+    Send ^{Right}
+    WinActivate, %Title%
+    Return
 
 +!t::
-SongTitle := GetSpotWindow()
-if(SongTitle = "Spotify"){
-    TrayTip, Current Spotify Song, Paused
+    SongTitle := GetSpotWindow()
+    if(SongTitle = "Spotify"){
+        TrayTip, Current Spotify Song, Paused
+        Return
+    }
+    TrayTip, Current Spotify Song, %SongTitle%
     Return
-}
-TrayTip, Current Spotify Song, %SongTitle%
-Return
 
 ActivateSpot:
-Spot := GetSpotWindow()
-WinActivate, %Spot%
-Return
+    Spot := GetSpotWindow()
+    WinActivate, %Spot%
+    Return
+
+MinimizeSpot:
+    Spot := GetSpotWindow()
+    WinMinimize, %Spot%
+    Return
 
 GetSpotWindow()
 {
