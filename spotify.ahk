@@ -45,6 +45,10 @@ Return
 
 +!t::
 SongTitle := GetSpotWindow()
+if(SongTitle = "Spotify"){
+    TrayTip, Current Spotify Song, Paused
+    Return
+}
 TrayTip, Current Spotify Song, %SongTitle%
 Return
 
