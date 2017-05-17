@@ -4,10 +4,10 @@ Eventually this will be hooked up to an actual device controled by an Arduino, t
 
 ## Controls ##
 
-__Ctrl + Shift + P__: Pauses the current song.
+__Alt + Shift + P__: Pauses the current song.
 
-__Ctrl + Shift + N__: Skips the current song.
+__Alt + Shift + N__: Skips the current song.
 
-__Ctrl + Shift + O__: Toggles the sound. ( It'll lower the volume to min or max, be careful with your ears! )
+__Alt + Shift + O__: Toggles the sound. ( It'll lower the volume to min or max, be careful with your ears! )
 
-__Ctrl + Shift + T__: Shows the current playing song in the system tray.
+__Alt + Shift + T__: Shows the current playing song in the system tray.
